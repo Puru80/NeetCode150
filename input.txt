@@ -1,0 +1,5 @@
+2
+racecar
+carrace
+jar
+jam

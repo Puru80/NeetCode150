@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class ContainsDuplicate {
+public class ValidAnagram {
 
     public static PrintWriter pw;
 
@@ -48,18 +48,24 @@ public class ContainsDuplicate {
         }
     }
 
-    public static boolean hasDuplicate(int[] nums) {
-        Set<Integer> set = new HashSet<>();
+    public static boolean isAnagram(String s, String t) {
+        int[] count = new int[26];
 
-        for (int i : nums) {
-            if (set.contains(i)) {
-                return true;
-            }
-
-            set.add(i);
+        for (char c : s.toCharArray()) {
+            count[c - 'a']++;
         }
 
-        return false;
+        for(char c: t.toCharArray()){
+            count[c - 'a']--;
+        }
+
+        for(int i=0;i< count.length;i++){
+            if(count[i] != 0){
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public static void main(String[] args) throws Exception {
@@ -68,10 +74,15 @@ public class ContainsDuplicate {
         int t = input.nextInt();
 
         while (t-- > 0) {
-            int[] nums = Arrays.stream(input.nextLine().split(" ")).mapToInt(s -> Integer.parseInt(s))
-                    .toArray();
+            String s = input.nextLine();
+            String s1 = input.nextLine();
 
-            pw.println(hasDuplicate(nums));
+            // pw.println(s);
+            // pw.println(s1);
+
+            // pw.println('r' - 'a');
+
+            pw.println(isAnagram(s, s1));
         }
 
         pw.flush();

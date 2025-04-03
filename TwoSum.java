@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class ContainsDuplicate {
+public class TwoSum {
 
     public static PrintWriter pw;
 
@@ -48,18 +48,19 @@ public class ContainsDuplicate {
         }
     }
 
-    public static boolean hasDuplicate(int[] nums) {
-        Set<Integer> set = new HashSet<>();
+    public static int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+        int n = nums.length;
 
-        for (int i : nums) {
-            if (set.contains(i)) {
-                return true;
-            }
-
-            set.add(i);
+        for (int i = 0; i < n; i++) {
+            int diff = target - nums[i];
+            if (map.containsKey(diff)) {
+                return new int[] { map.get(diff), i };
+            } else
+                map.put(nums[i], i);
         }
 
-        return false;
+        return new int[] { -1, -1 };
     }
 
     public static void main(String[] args) throws Exception {
@@ -70,8 +71,9 @@ public class ContainsDuplicate {
         while (t-- > 0) {
             int[] nums = Arrays.stream(input.nextLine().split(" ")).mapToInt(s -> Integer.parseInt(s))
                     .toArray();
+            int target = input.nextInt();
 
-            pw.println(hasDuplicate(nums));
+            pw.println(twoSum(nums, target));
         }
 
         pw.flush();
