@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class TopKFrequentElements {
+public class EncodeDecodeString {
 
     public static PrintWriter pw;
 
@@ -48,26 +48,42 @@ public class TopKFrequentElements {
         }
     }
 
-    public static int[] topKFrequent(int[] nums, int k) {
-        Map<Integer, Integer> count = new HashMap<>();
-        for (int num : nums) {
-            count.put(num, count.getOrDefault(num, 0) + 1);
+    public static String encode(List<String> strs) {
+        if (strs.isEmpty())
+            return "";
+
+        StringBuilder sb = new StringBuilder();
+
+        for (String s : strs) {
+            int len = s.length();
+
+            sb.append(len);
+            sb.append('#');
+            sb.append(s);
         }
 
-        List<int[]> arr = new ArrayList<>();
-        for (Map.Entry<Integer, Integer> entry : count.entrySet()) {
-            arr.add(new int[] {entry.getValue(), entry.getKey()});
-        }
+        return sb.toString();
+    }
 
-        arr.sort((a, b) -> b[0] - a[0]);
+    public static List<String> decode(String str) {
+        List<String> res = new ArrayList<>();
 
-        int[] res = new int[k];
-        for (int i = 0; i < k; i++) {
-            res[i] = arr.get(i)[1];
+        int length = 0;
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+
+            if (Character.isDigit(c)) {
+                length = length * 10 + (c - '0');
+            } else if (c == '#') {
+                res.add(str.substring(i + 1, i + length + 1));
+
+                i = i + length;
+                length = 0;
+            }
         }
 
         return res;
-    } 
+    }
 
     public static void main(String[] args) throws Exception {
         FastReader input = new FastReader();
@@ -75,13 +91,15 @@ public class TopKFrequentElements {
         int t = input.nextInt();
 
         while (t-- > 0) {
-            int[] nums = Arrays.stream(input.nextLine().split(" ")).mapToInt(s -> Integer.parseInt(s))
-                    .toArray();
-            int k = input.nextInt();
+            List<String> list = Arrays.stream(input.nextLine().split(" "))
+                    .toList();
 
-            int[] res = topKFrequent(nums, k);
-            for(int i: res){
-                pw.print(i + " ");
+            String encodedString = encode(list);
+            pw.println(encodedString);
+
+            List<String> res = decode(encodedString);
+            for (String s : res) {
+                pw.print(s + " ");
             }
 
             pw.println();

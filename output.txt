@@ -1,2 +1,4 @@
-true
-false
+9#Character15#getNumericValue
+9
+15
+Character getNumericValue 

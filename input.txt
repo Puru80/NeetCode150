@@ -1,5 +1,2 @@
-2
-racecar
-carrace
-jar
-jam
+1
+Character getNumericValue
