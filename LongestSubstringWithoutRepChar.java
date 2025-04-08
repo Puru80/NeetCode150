@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class BestTimeBuySellStock {
+public class LongestSubstringWithoutRepChar {
 
     public static PrintWriter pw;
 
@@ -48,23 +48,39 @@ public class BestTimeBuySellStock {
         }
     }
 
-    public static int maxProfit(int[] prices) {
-        int l = 0, r=1;
-        int maxProfit = 0;
+    /* public static int lengthOfLongestSubstring(String s) {
+        Set<Character> set = new HashSet<>();
+        int l = 0, res = 0;
 
-        while(r < prices.length){
-            if(prices[l] < prices[r]){
-                int profit = prices[r] - prices[l];
-                maxProfit = Math.max(maxProfit, profit);
-            } else {
-                l=r;
+        for (int r = 0; r < s.length(); r++) {
+            while (set.contains(s.charAt(r))) {
+                set.remove(s.charAt(l));
+                l++;
             }
 
-            r++;
+            set.add(s.charAt(r));
+            res = Math.max(res, r - l + 1);
         }
 
-        return maxProfit;
+        return res;
+    } */
+
+    //Optimal sol
+    public static int lengthOfLongestSubstring(String s){
+        Map<Character, Integer> map = new HashMap<>();
+        int l=0, res=0;
+
+        for(int r=0;r<s.length();r++){
+            if(map.containsKey(s.charAt(r))){
+                l = Math.max(map.get(s.charAt(r)) + 1, l);
+            }
+
+            map.put(s.charAt(r), r);
+            res = Math.max(res, r - l +1);
+        }
+        return res;
     }
+
 
     public static void main(String[] args) throws Exception {
         FastReader input = new FastReader();
@@ -72,14 +88,9 @@ public class BestTimeBuySellStock {
         int t = input.nextInt();
 
         while (t-- > 0) {
-            int[] prices = Arrays.stream(
-                    input.nextLine()
-                            .trim()
-                            .split(","))
-                    .mapToInt(s -> Integer.parseInt(s))
-                    .toArray();
+            String s = input.nextLine();
 
-            pw.println(maxProfit(prices));
+            pw.println(lengthOfLongestSubstring(s));
         }
 
         pw.flush();
