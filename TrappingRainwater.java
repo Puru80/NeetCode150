@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class ContainerWithMostWater {
+public class TrappingRainwater {
 
     public static PrintWriter pw;
 
@@ -48,20 +48,38 @@ public class ContainerWithMostWater {
         }
     }
 
-    public static int maxArea(int[] heights) {
-        int n = heights.length;
-        int l = 0, r = n - 1;
+    public static int trap(int[] height) {
+        int n = height.length;
+        int[] ends = new int[n];
+
+        int max = height[0];
+        for(int i=0;i<n;i++){
+            max = Math.max(max, height[i]);
+            ends[i] = max;
+        }
+
+        for (int i : ends) {
+            pw.print(i + " ");
+        }
+        pw.println();
+
+        max = height[n-1];
+        for(int i=n-1; i>=0; i--){
+            max = Math.max(max, height[i]);
+
+            ends[i] = Math.min(max, ends[i]);
+        }
+
+        for(int i: ends){
+            pw.print(i + " ");
+        }
+
+        pw.println();
 
         int ans = 0;
-
-        while (l < r) {
-            int area = (r - l) * Math.min(heights[l], heights[r]);
-            ans = Math.max(ans, area);
-
-            if (heights[l] > heights[r]) {
-                r--;
-            } else {
-                l++;
+        for(int i=0;i<n;i++){
+            if(ends[i] - height[i] > 0){
+                ans += ends[i] - height[i];
             }
         }
 
@@ -74,10 +92,10 @@ public class ContainerWithMostWater {
         int t = input.nextInt();
 
         while (t-- > 0) {
-            int[] heights = Arrays.stream(input.nextLine().split(" ")).mapToInt(s -> Integer.parseInt(s))
+            int height[] = Arrays.stream(input.nextLine().trim().split(",")).mapToInt(s -> Integer.parseInt(s))
                     .toArray();
 
-            pw.println(maxArea(heights));
+            pw.println(trap(height));
         }
 
         pw.flush();

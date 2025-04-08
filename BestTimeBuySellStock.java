@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class ContainerWithMostWater {
+public class BestTimeBuySellStock {
 
     public static PrintWriter pw;
 
@@ -48,24 +48,8 @@ public class ContainerWithMostWater {
         }
     }
 
-    public static int maxArea(int[] heights) {
-        int n = heights.length;
-        int l = 0, r = n - 1;
-
-        int ans = 0;
-
-        while (l < r) {
-            int area = (r - l) * Math.min(heights[l], heights[r]);
-            ans = Math.max(ans, area);
-
-            if (heights[l] > heights[r]) {
-                r--;
-            } else {
-                l++;
-            }
-        }
-
-        return ans;
+    public static int maxProfit(int[] prices) {
+        return 0;
     }
 
     public static void main(String[] args) throws Exception {
@@ -74,10 +58,14 @@ public class ContainerWithMostWater {
         int t = input.nextInt();
 
         while (t-- > 0) {
-            int[] heights = Arrays.stream(input.nextLine().split(" ")).mapToInt(s -> Integer.parseInt(s))
+            int[] prices = Arrays.stream(
+                    input.nextLine()
+                            .trim()
+                            .split(","))
+                    .mapToInt(s -> Integer.parseInt(s))
                     .toArray();
 
-            pw.println(maxArea(heights));
+            pw.print(maxProfit(prices));
         }
 
         pw.flush();
