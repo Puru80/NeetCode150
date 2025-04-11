@@ -1,5 +1,5 @@
 2
-XYYX
-2
-AAABABB
-1
+abc
+lecabee
+abc
+lecaabee
