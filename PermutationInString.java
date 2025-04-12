@@ -51,7 +51,7 @@ public class PermutationInString {
     public static boolean checkInclusion(String s1, String s2) {
         Map<Character, Integer> count1 = new HashMap<>();
         for (char c : s1.toCharArray()) {
-            count1.put(c, count1.getOrDefault(count1, 0) + 1);
+            count1.put(c, count1.getOrDefault(c, 0) + 1);
         }
 
         int need = count1.size();
