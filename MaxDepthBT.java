@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class InvertBinaryTree {
+public class MaxDepthBT {
 
     public static PrintWriter pw;
 
@@ -48,32 +48,12 @@ public class InvertBinaryTree {
         }
     }
 
-
-    public static TreeNode invertTree(TreeNode root) {
+    public static int maxDepth(TreeNode root) {
         if (root == null) {
-            return null;
+            return 0;
         }
 
-        Queue<TreeNode> q = new LinkedList<>();
-        q.add(root);
-
-        while(!q.isEmpty()){
-            TreeNode cur = q.poll();
-
-            TreeNode temp = cur.left;
-            cur.left = cur.right;
-            cur.right = temp;
-
-            if(cur.left != null){
-                q.add(cur.left);
-            } 
-
-            if(cur.right != null){
-                q.add(cur.right);
-            }
-        }
-
-        return root;
+        return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
     }
 
     public static void main(String[] args) throws Exception {
@@ -82,10 +62,6 @@ public class InvertBinaryTree {
         int t = input.nextInt();
 
         while (t-- > 0) {
-            String[] arr = input.nextLine().split(" ");
-            TreeNode node = TreeNode.insertLevelOrder(arr);
-
-            TreeNode res = invertTree(node);
 
         }
 
