@@ -1,5 +1,9 @@
-.github
 .vscode
 .idea
-
+.DS_Store
+node_modules
+.github
+.iml
 *.iml
+*.log
+*.tmp
