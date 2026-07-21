@@ -1,5 +1,5 @@
 2
-OUZODYXAZV
-XYZ
-xyz
-xyz
+2 3 4 10 40
+3
+1 3 4 8 9 20 27
+100
