@@ -79,10 +79,10 @@ public class MedianTwoSortedArrays {
     }
     
 
-    // public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
+    public static int getKth(int[] nums1, int[] nums2, int k){
         
-    //     return 0;
-    // }
+        return 0;
+    }
 
     public static void main(String[] args) throws Exception {
         FastReader input = new FastReader();
