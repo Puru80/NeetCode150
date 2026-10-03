@@ -1,10 +1,9 @@
-package Bactracking;
+package OneDDP;
 
 import java.util.*;
-
 import java.io.*;
 
-public class NQueens {
+public class ClimbStairs {
 
     public static PrintWriter pw;
 
@@ -51,54 +50,17 @@ public class NQueens {
         }
     }
 
+    public static int climbStairs(int n) {
+        int one = 1, two = 1;
 
-    Set<Integer> col = new HashSet<>();
-    Set<Integer> posDiag = new HashSet<>();
-    Set<Integer> negDiag = new HashSet<>();
-    List<List<String>> res = new ArrayList<>();
-
-    public void backTrack(int r, int n, char[][] board){
-        if(r == n){
-            List<String> list = new ArrayList<>();
-            for(char[] st: board){
-                list.add(String.valueOf(st));
-            }
-            res.add(list);
-            return;
+        for(int i=0;i<n-1;i++){
+            int temp = one;
+            temp = one + two;
+            two = one;
+            one = temp;
         }
 
-        for(int c=0;c<n;c++){
-            if(col.contains(c) || posDiag.contains(r + c) || negDiag.contains(r-c)){
-                continue;
-            }
-
-            col.add(c);
-            posDiag.add(r + c);
-            negDiag.add(r - c);
-            board[r][c] = 'Q';
-
-            backTrack(r + 1, n, board);
-
-            col.remove(c);
-            posDiag.remove(r + c);
-            negDiag.remove(r - c);
-            board[r][c] = '.';
-        }
-    }
-
-    public List<List<String>> solveNQueens(int n) {
-        char[][] board = new char[n][n];
-
-        // 2. Populate the matrix with the '.' character using nested loops
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                board[i][j] = '.';
-            }
-        }
-
-        backTrack(0, n, board);
-
-        return res;
+        return one;
     }
 
     public static void main(String[] args) throws Exception {
@@ -107,7 +69,8 @@ public class NQueens {
         int t = input.nextInt();
 
         while (t-- > 0) {
-
+            int n = input.nextInt();
+            pw.println(climbStairs(n));
         }
 
         pw.flush();
